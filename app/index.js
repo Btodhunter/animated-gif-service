@@ -6,7 +6,7 @@ const fetchImage = require('./lib/fetch-image');
 const app = express();
 
 app.get('/', async (request, response) => {
-  response.send('Hello, 世界');
+  response.send('Hello, GitHub Universe!');
 });
 
 app.get('/gifme/:gif', async (request, response) => {
