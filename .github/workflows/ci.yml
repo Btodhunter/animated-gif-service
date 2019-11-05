@@ -42,7 +42,9 @@ jobs:
     - name: Deploy
       if: github.ref == 'refs/heads/master'
       run: |
-        GPR_REPO=docker.pkg.github.com/$(echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]')/production:${{ github.sha }}
-        docker tag $IMAGE $GPR_REPO
+        GPR_REPO=docker.pkg.github.com/$(echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]')/production
+        docker tag $IMAGE ${GPR_REPO}:${{ github.sha }}
+        docker tag $IMAGE ${GPR_REPO}:latest
         echo ${{ secrets.GITHUB_TOKEN }} | docker login -u ${{ github.actor }} docker.pkg.github.com --password-stdin
-        docker push $GPR_REPO
+        docker push ${GPR_REPO}:${{ github.sha }}
+        docker push ${GPR_REPO}:latest
